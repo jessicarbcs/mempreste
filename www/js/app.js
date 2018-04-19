@@ -17,7 +17,7 @@ var config = {
 firebase.initializeApp(config);
 
 var database = firebase.database();
-angular.module('starter', ['ionic', 'starter.controllers', 'ionic.native', 'ion-floating-menu'])
+angular.module('starter', ['ionic', 'starter.controllers', 'ionic.native', 'ion-floating-menu', 'firebase'])
 
     .run(function ($ionicPlatform, $cordovaSQLite) {
         $ionicPlatform.ready(function () {

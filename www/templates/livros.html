@@ -3,7 +3,7 @@
   </ion-floating-button>
   <ion-content>
     <ion-list>
-      <ion-item ng-repeat="livro in livros" href="#/app/livros/{{livro.id}}">
+      <ion-item ng-repeat="livro in livros" href="#/app/livros/{{livro.$id}}">
         {{livro.titulo}}
       </ion-item>
     </ion-list>

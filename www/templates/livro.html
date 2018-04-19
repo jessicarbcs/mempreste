@@ -5,26 +5,27 @@
     <div class="list">
       <label class="item item-input item-floating-label">
         <span class="input-label">ISBN</span>
-        <input type="text" placeholder="ISBN">
+        <input type="text" placeholder="ISBN" ng-model="livro.isbn">
       </label>
       <label class="item item-input item-floating-label">
         <span class="input-label">Titulo</span>
-        <input type="text" placeholder="Titulo">
+        <input type="text" placeholder="Titulo" ng-model="livro.titulo">
       </label>
       <label class="item item-input item-floating-label">
         <span class="input-label">Autor</span>
-        <input type="text" placeholder="Autor">
+        <input type="text" placeholder="Autor" ng-model="livro.autores">
       </label>
       <label class="item item-input item-select">
         <div class="input-label">
           Categoria
         </div>
-        <select>
-          <option>Ação</option>
-          <option>Romance</option>
-          <option>Ficção</option>
+        <select ng-model="livro.genero">
+          <option>autoajuda</option>
+          <option>outros</option>
         </select>
       </label>
     </div>
+    <button class="button button-assertive" ng-click="cancelar()">Cancelar</button>
+    <button class="button button-balanced" ng-click="salvar()">Salvar</button>
   </ion-content>
 </ion-view>
