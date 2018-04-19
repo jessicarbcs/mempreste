@@ -1,0 +1,68 @@
+// Ionic Starter App
+
+// angular.module is a global place for creating, registering and retrieving Angular modules
+// 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
+// the 2nd parameter is an array of 'requires'
+// 'starter.controllers' is found in controllers.js
+
+// Initialize Firebase
+var config = {
+    apiKey: "AIzaSyAUL1Jz6QaNkBv1gtOOPeKhd8NC3Qd2XSs",
+    authDomain: "mempreste.firebaseapp.com",
+    databaseURL: "https://mempreste.firebaseio.com",
+    projectId: "mempreste",
+    storageBucket: "mempreste.appspot.com",
+    messagingSenderId: "1061869024419"
+};
+firebase.initializeApp(config);
+
+var database = firebase.database();
+angular.module('starter', ['ionic', 'starter.controllers', 'ionic.native', 'ion-floating-menu'])
+
+    .run(function ($ionicPlatform, $cordovaSQLite) {
+        $ionicPlatform.ready(function () {
+            // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
+            // for form inputs)
+            if (window.cordova && window.cordova.plugins.Keyboard) {
+                cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+                cordova.plugins.Keyboard.disableScroll(true);
+            }
+            if (window.StatusBar) {
+                StatusBar.styleDefault();
+            }
+
+        });
+    })
+
+    .config(function ($stateProvider, $urlRouterProvider) {
+        $stateProvider
+
+            .state('app', {
+                url: '/app',
+                abstract: true,
+                templateUrl: 'templates/menu.html',
+                controller: 'AppCtrl'
+            })
+
+            .state('app.livros', {
+                url: '/livros',
+                views: {
+                    'menuContent': {
+                        templateUrl: 'templates/livros.html',
+                        controller: 'LivrosCtrl'
+                    }
+                }
+            })
+
+            .state('app.livro', {
+                url: '/livros/:idLivro',
+                views: {
+                    'menuContent': {
+                        templateUrl: 'templates/livro.html',
+                        controller: 'LivroCtrl'
+                    }
+                }
+            });
+        // if none of the above states are matched, use this as the fallback
+        $urlRouterProvider.otherwise('/app/livros');
+    });

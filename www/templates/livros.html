@@ -1,0 +1,11 @@
+<ion-view view-title="Livros">
+  <ion-floating-button click="add()" has-footer="false" button-color="#2AC9AA" icon="ion-plus" icon-color="#fff">
+  </ion-floating-button>
+  <ion-content>
+    <ion-list>
+      <ion-item ng-repeat="livro in livros" href="#/app/livros/{{livro.id}}">
+        {{livro.titulo}}
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>

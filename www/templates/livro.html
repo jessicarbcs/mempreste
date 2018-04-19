@@ -1,0 +1,30 @@
+<ion-view view-title="Livro">
+  <ion-content>
+    <h1 ng-if="isCadastro">Cadastro</h1>
+    <h1 ng-if="!isCadastro">Edição</h1>
+    <div class="list">
+      <label class="item item-input item-floating-label">
+        <span class="input-label">ISBN</span>
+        <input type="text" placeholder="ISBN">
+      </label>
+      <label class="item item-input item-floating-label">
+        <span class="input-label">Titulo</span>
+        <input type="text" placeholder="Titulo">
+      </label>
+      <label class="item item-input item-floating-label">
+        <span class="input-label">Autor</span>
+        <input type="text" placeholder="Autor">
+      </label>
+      <label class="item item-input item-select">
+        <div class="input-label">
+          Categoria
+        </div>
+        <select>
+          <option>Ação</option>
+          <option>Romance</option>
+          <option>Ficção</option>
+        </select>
+      </label>
+    </div>
+  </ion-content>
+</ion-view>
