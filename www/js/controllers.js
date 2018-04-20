@@ -12,23 +12,29 @@ angular.module('starter.controllers', [])
   })
 
   .controller('LivrosCtrl', function ($scope, $state, $firebaseArray) {
+    // Busca uma lista de livros pela referencia
     $scope.livros = $firebaseArray(database.ref("livros"));
-
+    
+    // Inicia a view de manipulação de livros com o um livro vazio para criação
     $scope.add = function () {
       $state.go('app.livro', { idLivro: $scope.livros.length + 1 })
     }
   })
 
   .controller('LivroCtrl', function ($scope, $stateParams, $firebaseObject, $state) {
+    // Busca um livro com base no id passado para o estado
     $scope.livro = $firebaseObject(database.ref("livros/" + $stateParams.idLivro));
-
+    
+    // Salva as alterações do objeto livro seja ele um livro existente ou um novo cadastrado.
     $scope.salvar = function () {
       $scope.livro.$save();
       $state.go("app.livros")
     };
+    // Retorna para view de livros.
     $scope.cancelar = function () {
       $state.go("app.livros")
     };
+    // Remove um livro do banco de dados.
     $scope.remove = function(){
       $scope.livro.$remove();
       $state.go("app.livros")
