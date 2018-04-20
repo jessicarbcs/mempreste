@@ -20,18 +20,17 @@ angular.module('starter.controllers', [])
   })
 
   .controller('LivroCtrl', function ($scope, $stateParams, $firebaseObject, $state) {
-    $scope.livro = $firebaseObject(database.ref("livros/"+$stateParams.idLivro));
-    
-    $scope.isCadastro = $scope.idLivro === "new";
+    $scope.livro = $firebaseObject(database.ref("livros/" + $stateParams.idLivro));
+
     $scope.salvar = function () {
-      database.ref('livros/' + 1).set({
-        isbn: "9781400069286",
-        titulo: "O poder do hábito: Por que fazemos o que fazemos na vida e nos negócios",
-        autores: "Charles Duhigg",
-        genero: "Livro de autoajuda"
-      });
+      $scope.livro.$save();
+      $state.go("app.livros")
     };
-    $scope.cancelar = function(){
-      $state.go("app.livros")      
+    $scope.cancelar = function () {
+      $state.go("app.livros")
+    };
+    $scope.remove = function(){
+      $scope.livro.$remove();
+      $state.go("app.livros")
     }
   });

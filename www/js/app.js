@@ -15,8 +15,9 @@ var config = {
     messagingSenderId: "1061869024419"
 };
 firebase.initializeApp(config);
-
 var database = firebase.database();
+
+// Initialize app
 angular.module('starter', ['ionic', 'starter.controllers', 'ionic.native', 'ion-floating-menu', 'firebase'])
 
     .run(function ($ionicPlatform, $cordovaSQLite) {
@@ -34,6 +35,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ionic.native', 'ion-
         });
     })
 
+    // Definição dos estados(funções) da app
     .config(function ($stateProvider, $urlRouterProvider) {
         $stateProvider
 
