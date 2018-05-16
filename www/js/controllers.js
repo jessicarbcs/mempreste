@@ -1,6 +1,8 @@
 angular.module('starter.controllers', [])
 
-    .controller('AppCtrl', function ($scope, $ionicModal, $timeout) {
+    .controller('AppCtrl', function ($scope, $ionicModal, $timeout, $state, credendialService) {
+        if (credendialService.getLoggedUser() == null)
+            $state.go("login")
 
         // With the new view caching in Ionic, Controllers are only called
         // when they are recreated or on app start, instead of every page change.
@@ -11,18 +13,21 @@ angular.module('starter.controllers', [])
 
     })
 
-    .controller('LivrosCtrl', function ($scope, $state, $firebaseArray) {
+    .controller('LivrosCtrl', function ($scope, $state, $firebaseArray, credendialService) {
         // Busca uma lista de livros pela referencia
+        console.log(credendialService.getLoggedUser());
         $scope.livros = $firebaseArray(database.ref("livros"));
 
         // Inicia a view de manipulação de livros com o um livro vazio para criação
         $scope.add = function () {
             $state.go('app.livro', { idLivro: $scope.livros.length + 1 })
         }
+        $scope.user = credendialService.getLoggedUser();
     })
 
-    .controller('LivroCtrl', function ($scope, $stateParams, $firebaseObject, $state) {
+    .controller('LivroCtrl', function ($scope, $stateParams, $firebaseObject, credendialService, $state) {
         // Busca um livro com base no id passado para o estado
+        console.log(credendialService.getLoggedUser());
         $scope.livro = $firebaseObject(database.ref("livros/" + $stateParams.idLivro));
 
         // Salva as alterações do objeto livro seja ele um livro existente ou um novo cadastrado.
@@ -40,14 +45,14 @@ angular.module('starter.controllers', [])
             $state.go("app.livros")
         }
     })
-    .controller('LoginCtrl', function ($scope, $stateParams, $firebaseAuth, $state) {
-        var auth = $firebaseAuth();
+    .controller('LoginCtrl', function ($scope, credendialService, $state) {
         $scope.googleLogin = function () {
-            auth.$signInWithPopup("google").then(function (firebaseUser) {
-                console.log("Signed in as:", firebaseUser.user);
-                $scope.img = "https://lh6.googleusercontent.com/-avSlRRZUbN4/AAAAAAAAAAI/AAAAAAAAD8I/JuG8GzxBNiQ/photo.jpg";
-            }).catch(function (error) {
-                console.log("Authentication failed:", error);
-            });
+            credendialService.googleLogin().then(function (hasLogged) {
+                if (hasLogged) {
+                    $state.go("app.livros", {}, {reload: "app"});
+                } else {
+                    alert("Try again bitch")
+                }
+            })
         };
     })
