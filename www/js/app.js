@@ -64,7 +64,16 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ionic.native', 'ion-
                         controller: 'LivroCtrl'
                     }
                 }
+            })
+            .state('app.login', {
+                url: '/login',
+                views: {
+                    'menuContent': {
+                        templateUrl: 'templates/login.html',
+                        controller: 'LoginCtrl'
+                    }
+                }
             });
         // if none of the above states are matched, use this as the fallback
-        $urlRouterProvider.otherwise('/app/livros');
+        $urlRouterProvider.otherwise('/app/login');
     });
