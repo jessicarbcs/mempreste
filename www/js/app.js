@@ -18,7 +18,7 @@ firebase.initializeApp(config);
 var database = firebase.database();
 
 // Initialize app
-angular.module('starter', ['ionic', 'starter.controllers', 'ionic.native', 'ion-floating-menu', 'firebase'])
+angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'ionic.native', 'ion-floating-menu', 'firebase'])
 
     .run(function ($ionicPlatform, $cordovaSQLite) {
         $ionicPlatform.ready(function () {
@@ -65,15 +65,11 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ionic.native', 'ion-
                     }
                 }
             })
-            .state('app.login', {
+            .state('login', {
                 url: '/login',
-                views: {
-                    'menuContent': {
-                        templateUrl: 'templates/login.html',
-                        controller: 'LoginCtrl'
-                    }
-                }
+                templateUrl: 'templates/login.html',
+                controller: 'LoginCtrl'
             });
         // if none of the above states are matched, use this as the fallback
-        $urlRouterProvider.otherwise('/app/login');
+        $urlRouterProvider.otherwise('/login');
     });
