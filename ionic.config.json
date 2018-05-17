@@ -1,6 +1,6 @@
 {
-  "name": "myApp",
-  "app_id": "6a64d0f9",
+  "name": "Mempreste",
+  "app_id": "",
   "type": "ionic1",
   "integrations": {
     "gulp": {},
