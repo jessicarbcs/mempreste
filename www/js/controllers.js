@@ -15,20 +15,22 @@ angular.module('starter.controllers', [])
 
     .controller('LivrosCtrl', function ($scope, $state, $firebaseArray, credendialService) {
         // Busca uma lista de livros pela referencia
-        console.log(credendialService.getLoggedUser());
-        $scope.livros = $firebaseArray(database.ref("livros"));
+        $scope.user = credendialService.getLoggedUser();
+        if ($scope.user != null)
+            $scope.livros = $firebaseArray(database.ref($scope.user.uid + "/livros"));
 
         // Inicia a view de manipulação de livros com o um livro vazio para criação
         $scope.add = function () {
-            $state.go('app.livro', { idLivro: $scope.livros.length + 1 })
+            let id = $scope.livros ? $scope.livros.length + 1 : 0;
+            $state.go('app.livro', { idLivro: id })
         }
-        $scope.user = credendialService.getLoggedUser();
     })
 
     .controller('LivroCtrl', function ($scope, $stateParams, $firebaseObject, credendialService, $state) {
         // Busca um livro com base no id passado para o estado
-        console.log(credendialService.getLoggedUser());
-        $scope.livro = $firebaseObject(database.ref("livros/" + $stateParams.idLivro));
+        $scope.user = credendialService.getLoggedUser();
+        if ($scope.user != null)
+            $scope.livro = $firebaseObject(database.ref($scope.user.uid + "/livros/" + $stateParams.idLivro));
 
         // Salva as alterações do objeto livro seja ele um livro existente ou um novo cadastrado.
         $scope.salvar = function () {
@@ -49,7 +51,7 @@ angular.module('starter.controllers', [])
         $scope.googleLogin = function () {
             credendialService.googleLogin().then(function (hasLogged) {
                 if (hasLogged) {
-                    $state.go("app.livros", {}, {reload: "app"});
+                    $state.go("app.livros");
                 } else {
                     alert("Try again bitch")
                 }
