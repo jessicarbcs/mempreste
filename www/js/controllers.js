@@ -21,20 +21,30 @@ angular.module('starter.controllers', [])
 
         // Inicia a view de manipulação de livros com o um livro vazio para criação
         $scope.add = function () {
-            let id = $scope.livros ? $scope.livros.length + 1 : 0;
-            $state.go('app.livro', { idLivro: id })
+            $state.go('app.livro', { 
+                time: Date.now(),
+                idLivro: 'new' 
+            })
         }
     })
 
-    .controller('LivroCtrl', function ($scope, $stateParams, $firebaseObject, credendialService, $state) {
+    .controller('LivroCtrl', function ($scope, $stateParams, $firebaseObject, $firebaseArray, credendialService, $state) {
         // Busca um livro com base no id passado para o estado
         $scope.user = credendialService.getLoggedUser();
-        if ($scope.user != null)
-            $scope.livro = $firebaseObject(database.ref($scope.user.uid + "/livros/" + $stateParams.idLivro));
-
+        if ($scope.user != null) {
+            if ($stateParams.idLivro != 'new')
+                $scope.livro = $firebaseObject(database.ref($scope.user.uid + "/livros/" + $stateParams.idLivro));
+            else {
+                $scope.livros = $firebaseArray(database.ref($scope.user.uid + "/livros"));
+                $scope.livro = {};
+            }
+        }
         // Salva as alterações do objeto livro seja ele um livro existente ou um novo cadastrado.
         $scope.salvar = function () {
-            $scope.livro.$save();
+            if ($stateParams.idLivro != 'new')
+                $scope.livro.$save();
+            else
+                $scope.livros.$add($scope.livro);
             $state.go("app.livros")
         };
         // Retorna para view de livros.

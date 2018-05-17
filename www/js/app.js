@@ -61,6 +61,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
 
             .state('app.livro', {
                 url: '/livros/:idLivro',
+                params:{time: null},
                 views: {
                     'menuContent': {
                         templateUrl: 'templates/livro.html',
