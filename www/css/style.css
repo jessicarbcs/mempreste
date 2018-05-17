@@ -1,1 +1,13 @@
 /* Empty. Add your own CSS if you like */
+
+.nav-bar-block {
+    height: 7.5%;
+}
+
+.nav-bar-block, .bar {
+    background-color: #ff6d0b !important;
+}
+
+.bar .title {
+    color: #fafafa !important;
+}

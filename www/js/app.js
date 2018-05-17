@@ -29,7 +29,10 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
                 cordova.plugins.Keyboard.disableScroll(true);
             }
             if (window.StatusBar) {
-                StatusBar.styleDefault();
+                if (window.StatusBar) {
+                    StatusBar.backgroundColorByHexString('#C43C00');
+                    //StatusBar.styleDefault();
+                  }
             }
 
         });
